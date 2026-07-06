@@ -4,7 +4,7 @@ This repository distributes BC3Miner through GitHub Releases only.
 
 Download the current release from:
 
-https://github.com/evilwhynot/bc3-sha3-256t-miner/releases/tag/v1.0.1
+https://github.com/evilwhynot/bc3-sha3-256t-miner/releases/tag/v1.0.2
 
 Release assets include:
 
@@ -12,14 +12,9 @@ Release assets include:
 - HiveOS custom miner tarball
 - SHA256 checksums
 
-BC3Miner v1.0.1 adds native precompiled NVIDIA Blackwell `sm_120` CUDA image
-support. RTX 5090 correctness was validated on CUDA 13 / NVIDIA driver
-580.142. NVRTC fallback remains available, and Blackwell performance tuning is
-ongoing.
+BC3Miner v1.0.2 adds an opt-in Blackwell live tuning profile, decoupled live
+network polling, and CUDA auto fallback from precompiled image loading to NVRTC
+when needed. It keeps native `sm_120` CUDA image support from v1.0.1.
 
 This public repository is used for release distribution. Source code is not
 published here.
-
-Cryptocurrency mining software may be flagged by antivirus or endpoint security
-tools. Review detections with your security provider and report the detection
-name, path, timestamp, and action taken.
