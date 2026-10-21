@@ -1,97 +1,98 @@
-# BC3Miner
+# BC3 Miner
 
-High performance SHA3-256T GPU mining for BitcoinIII (BC3).
+High performance BC3Hash GPU mining for BitcoinIII (BC3).
 
-Native NVIDIA CUDA and AMD OpenCL mining for Windows, Linux, and HiveOS.
+NVIDIA CUDA and AMD Radeon mining for Windows, Linux, and HiveOS.
 
-![Version 1.0.3](https://img.shields.io/badge/version-1.0.3-168f77) ![Windows 10 and 11](https://img.shields.io/badge/Windows-10%20%7C%2011-3578e5) ![Linux and HiveOS](https://img.shields.io/badge/Linux-HiveOS-5f6f52) ![NVIDIA CUDA](https://img.shields.io/badge/NVIDIA-CUDA-76b900)
+![Version 2.1.0](https://img.shields.io/badge/version-2.1.0-168f77) ![Windows 10 and 11](https://img.shields.io/badge/Windows-10%20%7C%2011-3578e5) ![Linux and HiveOS](https://img.shields.io/badge/Linux-HiveOS-5f6f52) ![NVIDIA CUDA](https://img.shields.io/badge/NVIDIA-CUDA-76b900)
 
-![AMD OpenCL](https://img.shields.io/badge/AMD-OpenCL-d94841) ![Optional 0.50 percent developer fee](https://img.shields.io/badge/dev%20fee-optional%200.50%25-168f77) ![MIT License](https://img.shields.io/badge/license-MIT-555555)
+![AMD Radeon](https://img.shields.io/badge/AMD-OpenCL%20%7C%20ROCm-d94841) ![1 percent developer fee](https://img.shields.io/badge/dev%20fee-1%25%2C%20can%20be%20turned%20off-168f77) ![MIT License](https://img.shields.io/badge/license-MIT-555555)
 
-[Download](#downloads) · [Quick Start](#quick-start) · [Performance](#performance) · [Supported GPUs](#supported-gpus) · [Developer Fee](#optional-developer-fee) · [Security](#security-and-privacy) · [Support](#reporting-issues)
+[Download](#downloads) · [Quick Start](#quick-start) · [Performance](#performance) · [Supported GPUs](#supported-gpus) · [Developer Fee](#developer-fee) · [Security](#security-and-privacy) · [Support](#reporting-issues)
 
 ## Overview
 
-BC3Miner mines BitcoinIII (BC3) using SHA3-256T. The Windows package includes a native GUI and CLI for NVIDIA CUDA, the Linux/HiveOS package provides a CLI for NVIDIA CUDA and AMD OpenCL. Architecture paths are selected for supported hardware below with approved compatibility behavior where available.
+BC3 Miner mines BitcoinIII (BC3) with BC3Hash, the proof of work BitcoinIII has used since block 64360. The Windows package has a desktop app and a command line miner for NVIDIA and AMD GPUs. The Linux package is a command line miner for NVIDIA and AMD GPUs, and the HiveOS package is a custom miner built from it.
 
-You choose the pool, wallet or user, worker and pool password or difficulty setting. Every GPU candidate is revalidated on the CPU before submission. There is an optional developer fee that is enabled by default and can be completely disabled in the saved configuration if you wish.
+You choose the pool, wallet, worker and password. Every result a GPU finds is hashed again on the CPU with the BitcoinIII node's own BC3Hash code before it is sent to the pool. A 1% developer fee is on by default and can be turned off.
+
+> **Upgrading from v1.0.x:** BitcoinIII replaced SHA3-256T with BC3Hash at block 64360, so BC3Miner v1.0.x no longer mines BC3. Install v2.1.0. On HiveOS, change the flight sheet's Installation URL (see [HiveOS Setup](#hiveos-setup)).
 
 ## Highlights
 
 | Capability | What it provides |
 | --- | --- |
-| **Performance** | Optimized for NVIDIA and tuned for AMD OpenCL. |
-| **Cross platform** | Windows GUI/CLI plus Linux and HiveOS CLI packages. |
-| **Backends** | NVIDIA CUDA and AMD OpenCL. |
-| **Live mining** | Compatible BC3 Stratum pools with separate connection, job, and submission accounting. |
-| **Share safety** | CPU candidate revalidation, stale job handling, duplicate suppression, nonce accounting, and exact difficulty ledgers. |
-| **Transparent fee** | Optional 0.50% developer fee, enabled by default and disabled in the config file. |
-| **Privacy** | No hidden telemetry, remote control service, autostart, or automatic updater. |
-| **Hardware policy** | No Auto Tune and no miner controlled power, clock, voltage, fan, VBIOS, or firmware changes. |
+| **BC3Hash** | Mining of BitcoinIII's current proof of work on NVIDIA and AMD GPUs. |
+| **Share safety** | Every result is hashed again on the CPU with the BitcoinIII node's BC3Hash code. The GPUs also report easier results that are only checked, so their correctness is confirmed all the time. |
+| **Desktop app** | Windows app for HashBay pools (North America or Europe, SOLO or PROP) or any stratum+tcp BC3Hash pool, with a GPU self test, temperatures and session logs. |
+| **AMD Radeon (beta)** | Windows through the Radeon driver's OpenCL. Linux and HiveOS with the AMD runtime included, so no ROCm installation is needed. RX 7000 also under WSL 2. |
+| **Stuck GPU watchdog** | A GPU that stops responding makes the miner restart itself. A GPU that keeps failing is left out, so the other GPUs keep mining. |
+| **Temperature limits** | A GPU that reaches its core or memory temperature limit pauses until it has cooled down. |
+| **Error reports** | `bc3-miner report` writes one file for a bug report, with your wallet address, worker name and pool password removed. |
+| **Hardware policy** | No miner controlled power, clock, voltage or fan changes. |
+| **Privacy** | Connects only to your pool and, while the developer fee is on, to HashBay. Nothing is uploaded. |
 
 ## Downloads
 
-Download BC3Miner only from the [official GitHub release](https://github.com/evilwhynot/bc3-sha3-256t-miner/releases/tag/v1.0.3).
+Download BC3 Miner only from the [official GitHub release](https://github.com/evilwhynot/BC3-Miner/releases/tag/v2.1.0).
 
 | Platform | Package | Includes |
 | --- | --- | --- |
-| Windows 10/11 x86_64 | [Windows ZIP](https://github.com/evilwhynot/bc3-sha3-256t-miner/releases/download/v1.0.3/bc3-miner-v1.0.3-windows-x86_64-nvidia-cuda-gui-cli.zip) | Native GUI, CLI, NVIDIA CUDA |
-| Linux / HiveOS x86_64 | [Linux tar.gz](https://github.com/evilwhynot/bc3-sha3-256t-miner/releases/download/v1.0.3/bc3miner-v1.0.3.tar.gz) | CLI, NVIDIA CUDA, AMD OpenCL |
-| Verification | [SHA256SUMS](https://github.com/evilwhynot/bc3-sha3-256t-miner/releases/download/v1.0.3/SHA256SUMS-V1_0_3.txt) | Package integrity checks |
+| Windows 10/11 x86_64 | [Windows ZIP](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.0/bc3-miner-v2.1.0-windows-x86_64-nvidia-amd-gui-cli.zip) | Desktop app, command line miner, NVIDIA CUDA, AMD OpenCL |
+| Linux x86_64 | [Linux tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.0/bc3-miner-v2.1.0-linux-x86_64-nvidia-amd.tar.gz) | Command line miner, NVIDIA CUDA, AMD runtime |
+| HiveOS x86_64 | [HiveOS tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.0/bc3miner-2.1.0.tar.gz) | Custom miner `bc3miner` |
+| LGPL sources | [Sources tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.0/bc3-miner-v2.1.0-linux-lgpl-sources.tar.gz) | Source of the libelf and libnuma libraries in the Linux and HiveOS packages |
+| Verification | [SHA256SUMS](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.0/SHA256SUMS-V2_1_0.txt), plus an `.asc` signature for each package | Package integrity and signature checks |
 
 ## Quick Start
 
-### Windows GUI
+### Windows desktop app
 
 1. Download and extract the Windows package.
-2. Open `bc3-miner-gui.exe`.
-3. Enter your pool, wallet or user, worker, and password or difficulty.
-4. Select the GPU and mining mode.
-5. Click **Start Mining**.
-6. Monitor hashrate and shares in **Activity**.
-7. Click **Stop Mining** to end the local miner process.
+2. Run `bc3-miner-gui.exe`. It finds your NVIDIA and AMD GPUs by itself.
+3. On the **Mine** page, choose a pool (HashBay SOLO or PROP, or **Other pool**) and, for HashBay, the region nearest to you. Enter your BC3 wallet address and a worker name.
+4. Optional: click **Test GPUs** once. Each GPU's results are checked against the CPU.
+5. Click **Start mining**. The page shows each step while the GPUs get ready, then the hashrate, shares and temperatures.
+6. Click **Stop mining** to end the session.
 
-The GUI does not start mining automatically. One Start action creates one miner child, there is no secondary confirmation popup, and Auto Tune is not included.
+Settings are saved automatically. Intensity, curve table size, temperature limits, dry run and a time limit are under **Advanced options** on the Mine page and on the Settings page.
 
-### Windows CLI
+### Windows command line
 
 ```powershell
 .\bc3-miner.exe mine `
-  --pool "YOUR_POOL" `
-  --wallet "YOUR_BC3_ADDRESS" `
-  --worker "YOUR_WORKER" `
-  --password "YOUR_PASSWORD" `
-  --backend cuda `
-  --device 0 `
-  --enable-live-mining
+  --pool stratum+tcp://na.stratum.hashbay.io:3345 `
+  --wallet YOUR_BC3_ADDRESS `
+  --worker YOUR_WORKER
 ```
 
-### Linux CLI
+### Linux
 
 ```bash
+tar -xzf bc3-miner-v2.1.0-linux-x86_64-nvidia-amd.tar.gz
+cd bc3-miner-v2.1.0-linux-x86_64-nvidia-amd
+./bc3-miner gpu-list
+./bc3-miner verify
 ./bc3-miner mine \
-  --pool "YOUR_POOL" \
-  --wallet "YOUR_BC3_ADDRESS" \
-  --worker "YOUR_WORKER" \
-  --password "YOUR_PASSWORD" \
-  --backend cuda \
-  --device 0 \
-  --enable-live-mining
+  --pool stratum+tcp://na.stratum.hashbay.io:3345 \
+  --wallet YOUR_BC3_ADDRESS \
+  --worker YOUR_WORKER
 ```
+
+HashBay servers: `na.stratum.hashbay.io` (North America) and `eu.stratum.hashbay.io` (Europe), each with SOLO on port 3345 and PROP on port 3344.
 
 For a HiveOS flight sheet, continue to [HiveOS Setup](#hiveos-setup).
 
 ## Supported Platforms
 
-| Platform | Backend | Interface | Requirements |
+| Platform | GPUs | Interface | Requirements |
 | --- | --- | --- | --- |
-| Windows 10/11 x86_64 | NVIDIA CUDA | Native GUI and CLI | Compatible NVIDIA driver/runtime |
-| Linux x86_64 | NVIDIA CUDA, AMD OpenCL | CLI | Ubuntu 22.04 class environment, OpenSSL 3 |
-| Current HiveOS x86_64 | NVIDIA CUDA, AMD OpenCL | Custom miner CLI | Current supported HiveOS generation, OpenSSL 3 |
+| Windows 10/11 x86_64 | NVIDIA, AMD (beta) | Desktop app and command line | NVIDIA driver 580 or newer, or a current AMD Radeon (Adrenalin) driver |
+| Linux x86_64 | NVIDIA, AMD | Command line | glibc 2.17 or newer. NVIDIA driver 580 or newer. AMD: the amdgpu driver with `/dev/kfd` and glibc 2.31 or newer |
+| HiveOS x86_64 | NVIDIA, AMD | Custom miner | NVIDIA driver 580 or newer. AMD: the HiveOS amdgpu driver |
+| Windows 11 with WSL 2 | AMD RX 7000 | Linux command line | Adrenalin 26.2.2 or newer, Ubuntu 22.04 or 24.04 |
 
-Driver and runtime compatibility can affect whether a precompiled CUDA image loads. Approved automatic fallback behavior may be used where available; strict precompiled verification fails visibly rather than silently selecting a different image.
-
-> **AMD compatibility note:** AMD/OpenCL mining retains its previously validated mining and performance implementation. The optional v1.0.3 developer-fee dual-session runtime was not physically revalidated on AMD because the authorized AMD test hosts were unavailable. Session switching remains covered by software, mock-Stratum, and multi-device accounting tests.
+On Linux, run the miner as root or as a user in the `render` and `video` groups to use AMD GPUs.
 
 ## Supported GPUs
 
@@ -100,198 +101,204 @@ Driver and runtime compatibility can affect whether a precompiled CUDA image loa
 - GeForce RTX 50XX
 - GeForce RTX 40XX
 - GeForce RTX 30XX
-- GeForce RTX 20XX
-- GeForce GTX 10XX
+- GeForce RTX 20XX and GTX 16XX (supported by the build, not tested yet)
+- GeForce GTX 10XX (needs the 580 driver series)
+- The matching workstation cards
 
-### AMD OpenCL
+Not supported: GTX 9XX (Maxwell), Volta (Titan V, Tesla V100), and data-center GPUs such as A100, H100 and B200.
 
-- Radeon RX 5700 XT (`gfx1010`) has a validated performance path.
-- Other AMD GPUs may work through OpenCL but they are not described as optimized or validated.
+### AMD Radeon (beta)
+
+- **Windows:** RX 400 series and newer (RX 400/500, Vega, RX 5000, 6000, 7000 and 9000), through the OpenCL runtime of the Radeon (Adrenalin) driver. Not yet tested on Windows Radeon drivers. Integrated Radeon graphics are not used.
+- **Linux and HiveOS:** RX 5000 (RDNA 1), RX 6000 (RDNA 2) and RX 7000 (RDNA 3) and the matching Radeon Pro cards. Tested on RX 5700 XT (HiveOS) and RX 7900 XTX (WSL 2). RX 400/500, Vega, Radeon VII and RX 9000 are not supported.
+- **Windows 11 through WSL 2:** RX 7000 series, with the Linux package.
+
+### GPU memory
+
+The miner builds a curve table on each GPU when it starts and picks the largest (fastest) table that fits: 16.1 GB on 24 GB NVIDIA cards, 4.6 GB on 8 to 16 GB cards and 1.5 GB on 6 GB cards. AMD GPUs use 21.5 GB on 24 GB cards and 5.9 GB on 8 to 16 GB cards.
 
 ## Performance
-
-[Hashrate of tested GPUs](https://docs.google.com/spreadsheets/d/12XgP8UFg0mFIDvssOLfgTR3HHrnOwDVcYN4OYCC1xkA/edit?gid=987654321#gid=987654321)
 
 ### NVIDIA
 
 ```text
-RTX 5090: v1.0.3: 2,528.92 MH/s
-RTX 4090: v1.0.3: 1,794.38 MH/s
-RTX 5070: v1.0.3: 724.68 MH/s
-RTX 3090: v1.0.3: 771.59 MH/s
+RTX 5090:       v2.1.0: 5.00-5.07 MH/s  (Linux, 575 W)
+RTX 4090 48GB:  v2.1.0: 2.85-2.87 MH/s  (Linux, 450 W)
+RTX 3090:       v2.1.0: 1.74-1.75 MH/s  (Windows, 449 W)
+RTX 3080 10GB:  v2.1.0: 1.38 MH/s       (HiveOS rig, 12-row table)
+RTX 3060 Ti:    v2.1.0: 0.82-0.83 MH/s  (HiveOS rig, 12-row table)
+GTX 1070 Ti:    v2.1.0: 0.12 MH/s       (HiveOS rig, 12-row table)
 ```
 
 ### AMD results
 
 ```text
-RX 5700 XT: v1.0.3: HiveOS: 245.54 MH/s
+RX 5700 XT x6:  v2.1.0: HiveOS: 1.88 MH/s total (0.31 MH/s each)
+RX 7900 XTX:    v2.1.0: WSL 2: 0.93 MH/s (45 second runs)
 ```
 
-Results are per GPU and reflect specific tested systems. Performance varies with GPU model, driver, clocks, power, cooling, operating system, pool, and difficulty. **Wall rate** is the practical local mining rate; **kernel rate** isolates GPU execution.
+60 second benchmarks at default power limits, except the RX 5700 XT rig, which runs its own clock and power settings. Results reflect specific tested systems. Performance varies with GPU model, driver, clocks, power, cooling, operating system and pool.
 
-## Optional Developer Fee
+## Developer Fee
 
-**BC3Miner includes an optional 0.50% developer mining fee.**
+**BC3 Miner includes a 1% developer fee.** It is on by default and can be turned off.
 
-It is enabled by default and can be completely disabled in the saved configuration:
-
-```toml
-developer_fee_enabled = false
-```
-
-Accounting uses exact completed physical hashes with a target ratio of 199 user parts to 1 developer part. User and developer work use separate Stratum sessions and separate submission ledgers. Developer work connects to the disclosed HashBay endpoint below. If the developer session is unavailable, user mining continues. Dry run, benchmark, verification, and self test modes perform no developer fee work; disabled mode creates no developer connection.
+Once every 100 minutes, the GPUs mine for 60 seconds (1% of the time) for the BC3 Miner developer on HashBay PROP, and for you the rest of the time. The first window comes at a random time in the first 100 minutes. The log and the app's Activity page show each window, and its shares are counted separately from yours, so your pool sees about 1% less hashrate than the miner shows. If the developer pool cannot be reached, the window is skipped and mining goes on for you.
 
 | Policy field | Value |
 | --- | --- |
-| Endpoint | `stratum+tcp://stratum.hashbay.io:3344` |
-| Public payout wallet | `15zH2Lfcri1nGeNLLyrA1E9Z431rEtwkKK` |
-| Default | Enabled |
-| Complete opt out | `developer_fee_enabled = false` |
+| Endpoint | `stratum+tcp://na.stratum.hashbay.io:3344` (`eu.stratum.hashbay.io:3344` when you mine on HashBay Europe) |
+| Developer worker | `15zH2Lfcri1nGeNLLyrA1E9Z431rEtwkKK.devfee` |
+| Default | On |
+| Turn off | Desktop app: **Settings > Developer fee**. Command line: `--no-dev-fee`. HiveOS: `--no-dev-fee` in the flight sheet's Extra config arguments |
+
+With the fee turned off, the miner never connects to the developer's pool.
 
 ## Security and Privacy
 
-- Every GPU candidate is CPU revalidated before submission.
-- Stale and duplicate candidates are suppressed, and nonce ranges are accounted for.
-- User and developer sessions keep independent submission and difficulty ledgers.
-- Wallet passwords, private keys, and seed phrases are not required or stored.
-- BC3Miner v1.0.3 does not include Auto Tune or controls for GPU power, clocks, voltage, fans, VBIOS, or firmware.
-- Support bundles remain local and should be reviewed before sharing.
-
-### Windows antivirus and signing
-
-The exact final v1.0.3 package passed the local Microsoft Defender normal-protection scan with no new detections. This does not establish universal antivirus approval or SmartScreen reputation.
-
-Cryptocurrency mining software may be flagged by antivirus or endpoint security products. The v1.0.3 Windows executables are unsigned and may display a Microsoft SmartScreen warning.
+- Every share is hashed again on the CPU with the BitcoinIII node's BC3Hash code before it is submitted. If a GPU result ever differs, it is dropped and that GPU is reset.
+- BC3 Miner does not change GPU power, clocks, voltage or fans.
+- The miner connects only to the pool you choose and, while the developer fee is on, to HashBay for the fee windows. Nothing is uploaded.
+- The desktop app saves its settings, including your wallet address and pool password, in `%APPDATA%\BC3Miner\gui-settings.toml`. **Settings > Wallet and privacy** turns this off or removes the saved wallet.
+- Logs and the Activity page hide the wallet address and pool password. Error reports remove the wallet address, worker name and pool password.
+- Wallet passwords, private keys and seed phrases are never needed.
 
 ## Verify Downloads
 
+Every package is signed with the HashBay.io Software OpenPGP key (on keys.openpgp.org):
+
+```text
+E0F6 CCD1 5264 35B4 1773  E4F1 E031 BF02 8477 0E9E
+```
+
 | File | SHA256 |
 | --- | --- |
-| `bc3-miner-v1.0.3-windows-x86_64-nvidia-cuda-gui-cli.zip` | `2bb5988021cf1ca4041989b8300e8aa614406b8ffc5672b12d204a7b7c632296` |
-| `bc3miner-v1.0.3.tar.gz` | `128b4df0c309c32287ae65186f268d6c12e3892e0af8fd958838abfbd4147405` |
-| `SHA256SUMS-V1_0_3.txt` | `8a944355e9ca1057b46d6a68e957653007a67cf1cab0fa638c74a0fe9c4300fd` |
+| `bc3-miner-v2.1.0-windows-x86_64-nvidia-amd-gui-cli.zip` | `9fc0a88630f57524a42d9806ef5f2bc5a354fdd805f86c4769189ea5ce55c9e9` |
+| `bc3-miner-v2.1.0-linux-x86_64-nvidia-amd.tar.gz` | `3851fa2db064532de6fec79f621074c28bbe431858dc1f0e76a306494f77d778` |
+| `bc3miner-2.1.0.tar.gz` | `818ef9d813a07993e18b6162870c6f1118289c8556bd246e0a2685c20e9af0ab` |
+| `bc3-miner-v2.1.0-linux-lgpl-sources.tar.gz` | `48ec6e59efc8131d7f4183b2ccae9eb9a8747844299bd77f983298bd33831573` |
+| `SHA256SUMS-V2_1_0.txt` | `a70b6ad498aacd17e72d9d1c97883092d390f25fe96e9b6de5dd1ef99251679d` |
+
+Check the signature (Linux, or Windows with Gpg4win):
+
+```bash
+gpg --verify bc3-miner-v2.1.0-windows-x86_64-nvidia-amd-gui-cli.zip.asc bc3-miner-v2.1.0-windows-x86_64-nvidia-amd-gui-cli.zip
+```
 
 Windows PowerShell:
 
 ```powershell
-Get-FileHash .\bc3-miner-v1.0.3-windows-x86_64-nvidia-cuda-gui-cli.zip -Algorithm SHA256
+Get-FileHash .\bc3-miner-v2.1.0-windows-x86_64-nvidia-amd-gui-cli.zip -Algorithm SHA256
 ```
 
-Linux, with both package archives and the checksum file in the same directory:
+Linux, with the checksum file in the same directory as the packages:
 
 ```bash
-sha256sum -c SHA256SUMS-V1_0_3.txt
+sha256sum -c --ignore-missing SHA256SUMS-V2_1_0.txt
 ```
 
-The reported hashes must match the official `SHA256SUMS-V1_0_3.txt` file and the values above.
+Each package also contains `SHA256SUMS.txt` and its signature `SHA256SUMS.txt.asc` for the files inside it.
 
-## Configuration
+## Command Line Options
 
-BC3Miner accepts a TOML configuration file. Start from the packaged example and replace every placeholder:
-
-```toml
-pool = "YOUR_POOL"
-wallet = "YOUR_BC3_ADDRESS"
-worker = "YOUR_WORKER"
-password = "YOUR_PASSWORD"
-backend = "cuda"
-device = "0"
-developer_fee_enabled = true
+```text
+--pool URL                         stratum+tcp:// pool address
+--wallet ADDRESS                   BC3 wallet address (or pool username)
+--worker NAME                      worker name
+--password X                       pool password or difficulty setting (default x)
+--device all | 0,1                 GPUs to use (numbers from gpu-list)
+--backend auto|nvidia|amd          GPU vendors to use (default: all supported GPUs)
+--intensity eco|balanced|high|max  batch size per GPU (default max)
+--curve-rows auto|11|12|13|14|16   curve table size (default: the largest that fits)
+--temp-limit 90                    pause a GPU at this core temperature (C)
+--mem-temp-limit 105               pause a GPU at this memory temperature (C)
+--dry-run                          mine and check shares but never submit them
+--no-dev-fee                       turn off the developer fee
 ```
 
-To disable the optional developer fee completely:
-
-```toml
-developer_fee_enabled = false
-```
-
-Run the CLI with the saved configuration:
-
-```powershell
-.\bc3-miner.exe mine --config .\bc3-miner.toml --enable-live-mining
-```
-
-Use `backend = "opencl"` on supported AMD/Linux configurations. Advanced geometry and runtime options should be changed only when their effect is understood.
+`bc3-miner mine --help` lists every option. Other commands: `gpu-list`, `verify`, `benchmark --seconds 60`, `sensors` and `report`.
 
 ## HiveOS Setup
 
-Create a custom miner in HiveOS with these fields:
+Create a flight sheet with a custom miner:
 
 ```text
-Miner name: bc3miner
-Installation URL: https://github.com/evilwhynot/bc3-sha3-256t-miner/releases/download/v1.0.3/bc3miner-v1.0.3.tar.gz
-Hash algorithm: sha-3
-Pool URL: YOUR_POOL
-Password: YOUR_PASSWORD
+Coin:                        BC3 (add it as a custom coin if it is not listed)
+Wallet:                      your BC3 address
+Pool:                        Configure in miner
+Miner:                       Custom
+Miner name:                  bc3miner
+Installation URL:            https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.0/bc3miner-2.1.0.tar.gz
+Hash algorithm:              bc3hash
+Wallet and worker template:  %WAL%.%WORKER_NAME%
+Pool URL:                    stratum+tcp://na.stratum.hashbay.io:3345
+Pass:                        x
+Extra config arguments:      optional, for example --intensity high --temp-limit 85
 ```
 
-Use your own wallet and worker template. In the extra configuration, select one backend:
+The same flight sheet works on NVIDIA, AMD and mixed rigs. HiveOS downloads a custom miner again only when the Installation URL changes, so point the flight sheet at the new file to update. Add `--no-dev-fee` to the Extra config arguments to turn the developer fee off.
 
-```text
-BC3_BACKEND=cuda
-```
-
-```text
-BC3_BACKEND=opencl
-```
-
-To disable the optional developer fee through the HiveOS wrapper:
-
-```text
-BC3_DEV_FEE_ENABLED=0
-```
-
-This writes the authoritative TOML setting `developer_fee_enabled = false`.
-HiveOS remains responsible for clocks, power, voltage, and fan settings. The
-package also includes the complete HiveOS setup guide.
+NVIDIA rigs need driver 580 or newer (`nvidia-driver-update 580`); rigs with GTX 10XX cards need the 580 series. HiveOS remains responsible for clocks, power, voltage and fan settings. The package's README.txt has the complete HiveOS guide.
 
 ## Troubleshooting / FAQ
 
 <details>
-<summary><strong>Does BC3Miner charge a developer fee?</strong></summary>
+<summary><strong>Does BC3 Miner charge a developer fee?</strong></summary>
 
-BC3Miner includes an optional 0.50% developer fee. It is enabled by default, uses a separate HashBay Stratum session and is fully disclosed above.
+Yes, 1%, on by default: 60 seconds in every 100 minutes on HashBay PROP. It is fully disclosed above.
 </details>
 
 <details>
-<summary><strong>How do I disable the developer fee?</strong></summary>
+<summary><strong>How do I turn off the developer fee?</strong></summary>
 
-Set `developer_fee_enabled = false` in the saved TOML configuration. On HiveOS, set `BC3_DEV_FEE_ENABLED=0`.
+In the desktop app, use **Settings > Developer fee**. On the command line and on HiveOS, add `--no-dev-fee`.
 </details>
 
 <details>
 <summary><strong>Can I use a pool other than HashBay?</strong></summary>
 
-Yes. User mining can use a compatible BC3 Stratum pool. When enabled, only the optional developer fee session connects to HashBay.
+Yes. Any stratum+tcp BC3Hash pool works (**Other pool** in the desktop app). While the developer fee is on, only its windows connect to HashBay.
 </details>
 
 <details>
-<summary><strong>Does BC3Miner overclock or change my GPU settings?</strong></summary>
+<summary><strong>Does BC3 Miner overclock or change my GPU settings?</strong></summary>
 
-No. BC3Miner v1.0.3 does not include Auto Tune and does not change power, clocks, voltage, fans, VBIOS, or firmware.
+No. BC3 Miner does not change power, clocks, voltage or fans.
 </details>
 
 <details>
-<summary><strong>Why might Windows display an antivirus or SmartScreen warning?</strong></summary>
+<summary><strong>Does BC3Miner v1.0.x still work?</strong></summary>
 
-Mining software can trigger security heuristics and the portable Windows executables are unsigned. Download only from the official release and verify the SHA256 checksum. Do not disable security controls.
+No. BitcoinIII switched from SHA3-256T to BC3Hash at block 64360, and v1.0.x mined SHA3-256T. Install v2.1.0. On HiveOS, change the flight sheet's Installation URL.
 </details>
 
 <details>
-<summary><strong>What information should I include in a bug report?</strong></summary>
+<summary><strong>The miner says "not enough free GPU memory".</strong></summary>
 
-Include the BC3Miner version, operating system, GPU model and count, driver, CUDA or OpenCL runtime, backend, wall and kernel rates, accepted/rejected/stale counts, sanitized errors, and whether the issue reproduces in dry run mode.
+Close other programs that use the GPU, or choose a smaller curve table with `--curve-rows 12`, `13`, `14` or `16`.
+</details>
+
+<details>
+<summary><strong>Why does the first start on an AMD GPU take longer on Windows?</strong></summary>
+
+The Radeon driver compiles the miner's GPU code for your GPU model once, which takes from about 20 seconds to a few minutes. The result is kept and reused. After a driver update it is compiled once more.
+</details>
+
+<details>
+<summary><strong>What should I include in a bug report?</strong></summary>
+
+Run `bc3-miner report` (`bc3-miner.exe report` on Windows) and attach the file it writes. It holds the error reports and system details, with your wallet address, worker name and pool password removed. Describe what you did and what happened.
 </details>
 
 ## Reporting Issues
 
-Use [GitHub Issues](https://github.com/evilwhynot/bc3-sha3-256t-miner/issues) for reproducible bugs. Search existing reports first and include enough system detail to reproduce the problem.
+Use [GitHub Issues](https://github.com/evilwhynot/BC3-Miner/issues) for reproducible bugs. Search existing reports first, and attach the file from `bc3-miner report`.
 
-Never post private keys, seed phrases, wallet passwords, exchange credentials, SSH credentials, or raw configuration files containing secrets. Sanitize pool credentials, worker names, IP addresses, and local paths before sharing logs or support bundles.
+Never post private keys, seed phrases, wallet passwords, exchange credentials, SSH credentials, or raw configuration files containing secrets.
 
 ## License
 
-BC3Miner is distributed under the MIT License included with each package. The
+BC3 Miner is distributed under the MIT License included with each package. The
 presence of that license does not itself describe the repository's
 source publication policy.
 
