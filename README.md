@@ -4,7 +4,7 @@ High performance BC3Hash GPU mining for BitcoinIII (BC3).
 
 NVIDIA CUDA and AMD Radeon mining for Windows, Linux, and HiveOS.
 
-![Version 2.1.0](https://img.shields.io/badge/version-2.1.0-168f77) ![Windows 10 and 11](https://img.shields.io/badge/Windows-10%20%7C%2011-3578e5) ![Linux and HiveOS](https://img.shields.io/badge/Linux-HiveOS-5f6f52) ![NVIDIA CUDA](https://img.shields.io/badge/NVIDIA-CUDA-76b900)
+![Version 2.1.2](https://img.shields.io/badge/version-2.1.2-168f77) ![Windows 10 and 11](https://img.shields.io/badge/Windows-10%20%7C%2011-3578e5) ![Linux and HiveOS](https://img.shields.io/badge/Linux-HiveOS-5f6f52) ![NVIDIA CUDA](https://img.shields.io/badge/NVIDIA-CUDA-76b900)
 
 ![AMD Radeon](https://img.shields.io/badge/AMD-OpenCL%20%7C%20ROCm-d94841) ![1 percent developer fee](https://img.shields.io/badge/dev%20fee-1%25%2C%20can%20be%20turned%20off-168f77) ![MIT License](https://img.shields.io/badge/license-MIT-555555)
 
@@ -16,7 +16,7 @@ BC3 Miner mines BitcoinIII (BC3) with BC3Hash, the proof of work BitcoinIII has 
 
 You choose the pool, wallet, worker and password. Every result a GPU finds is hashed again on the CPU with the BitcoinIII node's own BC3Hash code before it is sent to the pool. A 1% developer fee is on by default and can be turned off.
 
-> **Upgrading from v1.0.x:** BitcoinIII replaced SHA3-256T with BC3Hash at block 64360, so BC3Miner v1.0.x no longer mines BC3. Install v2.1.0. On HiveOS, change the flight sheet's Installation URL (see [HiveOS Setup](#hiveos-setup)).
+> **Upgrading from v1.0.x:** BitcoinIII replaced SHA3-256T with BC3Hash at block 64360, so BC3Miner v1.0.x no longer mines BC3. Install v2.1.2. On HiveOS, change the flight sheet's Installation URL (see [HiveOS Setup](#hiveos-setup)).
 
 ## Highlights
 
@@ -28,21 +28,23 @@ You choose the pool, wallet, worker and password. Every result a GPU finds is ha
 | **AMD Radeon (beta)** | Windows through the Radeon driver's OpenCL. Linux and HiveOS with the AMD runtime included, so no ROCm installation is needed. RX 7000 also under WSL 2. |
 | **Stuck GPU watchdog** | A GPU that stops responding makes the miner restart itself. A GPU that keeps failing is left out, so the other GPUs keep mining. |
 | **Temperature limits** | A GPU that reaches its core or memory temperature limit pauses until it has cooled down. |
+| **Efficiency** | The hashrate for each watt of GPU power (kH/W), next to each GPU's power in the desktop app, on the miner's speed line and in the statistics file. |
+| **Driver check** | GPUs that need a newer NVIDIA driver are named before mining starts. |
 | **Error reports** | `bc3-miner report` writes one file for a bug report, with your wallet address, worker name and pool password removed. |
 | **Hardware policy** | No miner controlled power, clock, voltage or fan changes. |
 | **Privacy** | Connects only to your pool and, while the developer fee is on, to HashBay. Nothing is uploaded. |
 
 ## Downloads
 
-Download BC3 Miner only from the [official GitHub release](https://github.com/evilwhynot/BC3-Miner/releases/tag/v2.1.0).
+Download BC3 Miner only from the [official GitHub release](https://github.com/evilwhynot/BC3-Miner/releases/tag/v2.1.2).
 
 | Platform | Package | Includes |
 | --- | --- | --- |
-| Windows 10/11 x86_64 | [Windows ZIP](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.0/bc3-miner-v2.1.0-windows-x86_64-nvidia-amd-gui-cli.zip) | Desktop app, command line miner, NVIDIA CUDA, AMD OpenCL |
-| Linux x86_64 | [Linux tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.0/bc3-miner-v2.1.0-linux-x86_64-nvidia-amd.tar.gz) | Command line miner, NVIDIA CUDA, AMD runtime |
-| HiveOS x86_64 | [HiveOS tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.0/bc3miner-2.1.0.tar.gz) | Custom miner `bc3miner` |
-| LGPL sources | [Sources tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.0/bc3-miner-v2.1.0-linux-lgpl-sources.tar.gz) | Source of the libelf and libnuma libraries in the Linux and HiveOS packages |
-| Verification | [SHA256SUMS](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.0/SHA256SUMS-V2_1_0.txt), plus an `.asc` signature for each package | Package integrity and signature checks |
+| Windows 10/11 x86_64 | [Windows ZIP](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.2/bc3-miner-v2.1.2-windows-x86_64-nvidia-amd-gui-cli.zip) | Desktop app, command line miner, NVIDIA CUDA, AMD OpenCL |
+| Linux x86_64 | [Linux tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.2/bc3-miner-v2.1.2-linux-x86_64-nvidia-amd.tar.gz) | Command line miner, NVIDIA CUDA, AMD runtime |
+| HiveOS x86_64 | [HiveOS tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.2/bc3miner-2.1.2.tar.gz) | Custom miner `bc3miner` |
+| LGPL sources | [Sources tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.2/bc3-miner-v2.1.2-linux-lgpl-sources.tar.gz) | Source of the libelf and libnuma libraries in the Linux and HiveOS packages |
+| Verification | [SHA256SUMS](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.2/SHA256SUMS-V2_1_2.txt), plus an `.asc` signature for each package | Package integrity and signature checks |
 
 ## Quick Start
 
@@ -69,8 +71,8 @@ Settings are saved automatically. Intensity, curve table size, temperature limit
 ### Linux
 
 ```bash
-tar -xzf bc3-miner-v2.1.0-linux-x86_64-nvidia-amd.tar.gz
-cd bc3-miner-v2.1.0-linux-x86_64-nvidia-amd
+tar -xzf bc3-miner-v2.1.2-linux-x86_64-nvidia-amd.tar.gz
+cd bc3-miner-v2.1.2-linux-x86_64-nvidia-amd
 ./bc3-miner gpu-list
 ./bc3-miner verify
 ./bc3-miner mine \
@@ -124,20 +126,20 @@ The miner builds a curve table on each GPU when it starts and picks the largest 
 ```text
 RTX 5090:       v2.1.0: 5.00-5.07 MH/s  (Linux, 575 W)
 RTX 4090 48GB:  v2.1.0: 2.85-2.87 MH/s  (Linux, 450 W)
-RTX 3090:       v2.1.0: 1.74-1.75 MH/s  (Windows, 449 W)
-RTX 3080 10GB:  v2.1.0: 1.38 MH/s       (HiveOS rig, 12-row table)
-RTX 3060 Ti:    v2.1.0: 0.82-0.83 MH/s  (HiveOS rig, 12-row table)
-GTX 1070 Ti:    v2.1.0: 0.12 MH/s       (HiveOS rig, 12-row table)
+RTX 3090:       v2.1.2: 1.76-1.77 MH/s  (Windows, 449 W)            4.0 kH/W
+RTX 3080 10GB:  v2.1.2: 1.44 MH/s       (HiveOS rig, 12-row table)  4.3 kH/W
+RTX 3060 Ti:    v2.1.2: 0.86-0.88 MH/s  (HiveOS rig, 12-row table)  3.3-4.0 kH/W
+GTX 1070 Ti:    v2.1.2: 0.13 MH/s       (HiveOS rig, 12-row table)  0.85 kH/W
 ```
 
 ### AMD results
 
 ```text
-RX 5700 XT x6:  v2.1.0: HiveOS: 1.88 MH/s total (0.31 MH/s each)
+RX 5700 XT x5:  v2.1.2: HiveOS: 1.56 MH/s total (0.31 MH/s each), 2.3 kH/W (GPU chip power)
 RX 7900 XTX:    v2.1.0: WSL 2: 0.93 MH/s (45 second runs)
 ```
 
-60 second benchmarks at default power limits, except the RX 5700 XT rig, which runs its own clock and power settings. Results reflect specific tested systems. Performance varies with GPU model, driver, clocks, power, cooling, operating system and pool.
+60 second benchmarks at default power limits, except the RX 5700 XT rig, which runs its own clock and power settings. kH/W is the efficiency while mining on HashBay: the hashrate for each watt the GPU driver reports (the whole card on NVIDIA, the GPU chip alone on AMD). Results reflect specific tested systems. Performance varies with GPU model, driver, clocks, power, cooling, operating system and pool.
 
 ## Developer Fee
 
@@ -173,28 +175,28 @@ E0F6 CCD1 5264 35B4 1773  E4F1 E031 BF02 8477 0E9E
 
 | File | SHA256 |
 | --- | --- |
-| `bc3-miner-v2.1.0-windows-x86_64-nvidia-amd-gui-cli.zip` | `9fc0a88630f57524a42d9806ef5f2bc5a354fdd805f86c4769189ea5ce55c9e9` |
-| `bc3-miner-v2.1.0-linux-x86_64-nvidia-amd.tar.gz` | `3851fa2db064532de6fec79f621074c28bbe431858dc1f0e76a306494f77d778` |
-| `bc3miner-2.1.0.tar.gz` | `818ef9d813a07993e18b6162870c6f1118289c8556bd246e0a2685c20e9af0ab` |
-| `bc3-miner-v2.1.0-linux-lgpl-sources.tar.gz` | `48ec6e59efc8131d7f4183b2ccae9eb9a8747844299bd77f983298bd33831573` |
-| `SHA256SUMS-V2_1_0.txt` | `a70b6ad498aacd17e72d9d1c97883092d390f25fe96e9b6de5dd1ef99251679d` |
+| `bc3-miner-v2.1.2-windows-x86_64-nvidia-amd-gui-cli.zip` | `a56b1360d4d108f2b196102db407cf93604d254219ca70e10c0c9c21eabad415` |
+| `bc3-miner-v2.1.2-linux-x86_64-nvidia-amd.tar.gz` | `86dbb8a6fe1b492dc946f67839817ed17afe6136db565a4b6c6bba50917eb1dc` |
+| `bc3miner-2.1.2.tar.gz` | `fb99ce0d3e3518d164738a0327973da368e20a8449a935a827a73b17f8f971e7` |
+| `bc3-miner-v2.1.2-linux-lgpl-sources.tar.gz` | `37b3773a34fb6c438aeca0b643d01cfcc8750f23493d0092dd55b0078f24a261` |
+| `SHA256SUMS-V2_1_2.txt` | `64da7eb40369766c7d5127d629f84e57e70041588a20147ca54dba8da0bfdb5e` |
 
 Check the signature (Linux, or Windows with Gpg4win):
 
 ```bash
-gpg --verify bc3-miner-v2.1.0-windows-x86_64-nvidia-amd-gui-cli.zip.asc bc3-miner-v2.1.0-windows-x86_64-nvidia-amd-gui-cli.zip
+gpg --verify bc3-miner-v2.1.2-windows-x86_64-nvidia-amd-gui-cli.zip.asc bc3-miner-v2.1.2-windows-x86_64-nvidia-amd-gui-cli.zip
 ```
 
 Windows PowerShell:
 
 ```powershell
-Get-FileHash .\bc3-miner-v2.1.0-windows-x86_64-nvidia-amd-gui-cli.zip -Algorithm SHA256
+Get-FileHash .\bc3-miner-v2.1.2-windows-x86_64-nvidia-amd-gui-cli.zip -Algorithm SHA256
 ```
 
 Linux, with the checksum file in the same directory as the packages:
 
 ```bash
-sha256sum -c --ignore-missing SHA256SUMS-V2_1_0.txt
+sha256sum -c --ignore-missing SHA256SUMS-V2_1_2.txt
 ```
 
 Each package also contains `SHA256SUMS.txt` and its signature `SHA256SUMS.txt.asc` for the files inside it.
@@ -228,7 +230,7 @@ Wallet:                      your BC3 address
 Pool:                        Configure in miner
 Miner:                       Custom
 Miner name:                  bc3miner
-Installation URL:            https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.0/bc3miner-2.1.0.tar.gz
+Installation URL:            https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.2/bc3miner-2.1.2.tar.gz
 Hash algorithm:              bc3hash
 Wallet and worker template:  %WAL%.%WORKER_NAME%
 Pool URL:                    stratum+tcp://na.stratum.hashbay.io:3345
@@ -267,9 +269,15 @@ No. BC3 Miner does not change power, clocks, voltage or fans.
 </details>
 
 <details>
+<summary><strong>What does the efficiency figure (kH/W) mean?</strong></summary>
+
+It is the hashrate for each watt of GPU power over the last 10 seconds: 1.78 MH/s at 440 W is 4.05 kH/W, the same as 4.05 kH per joule. The power is what the GPU driver reports: the whole card on NVIDIA, the GPU chip alone on AMD, so AMD figures look better, and the PC draws more at the wall. A GPU shows it once it has hashed for 12 seconds, and not while it is paused at its temperature limit.
+</details>
+
+<details>
 <summary><strong>Does BC3Miner v1.0.x still work?</strong></summary>
 
-No. BitcoinIII switched from SHA3-256T to BC3Hash at block 64360, and v1.0.x mined SHA3-256T. Install v2.1.0. On HiveOS, change the flight sheet's Installation URL.
+No. BitcoinIII switched from SHA3-256T to BC3Hash at block 64360, and v1.0.x mined SHA3-256T. Install v2.1.2. On HiveOS, change the flight sheet's Installation URL.
 </details>
 
 <details>
