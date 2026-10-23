@@ -4,7 +4,7 @@ High performance BC3Hash GPU mining for BitcoinIII (BC3).
 
 NVIDIA CUDA and AMD Radeon mining for Windows, Linux, and HiveOS.
 
-![Version 2.1.2](https://img.shields.io/badge/version-2.1.2-168f77) ![Windows 10 and 11](https://img.shields.io/badge/Windows-10%20%7C%2011-3578e5) ![Linux and HiveOS](https://img.shields.io/badge/Linux-HiveOS-5f6f52) ![NVIDIA CUDA](https://img.shields.io/badge/NVIDIA-CUDA-76b900)
+![Version 2.1.3](https://img.shields.io/badge/version-2.1.3-168f77) ![Windows 10 and 11](https://img.shields.io/badge/Windows-10%20%7C%2011-3578e5) ![Linux and HiveOS](https://img.shields.io/badge/Linux-HiveOS-5f6f52) ![NVIDIA CUDA](https://img.shields.io/badge/NVIDIA-CUDA-76b900)
 
 ![AMD Radeon](https://img.shields.io/badge/AMD-OpenCL%20%7C%20ROCm-d94841) ![1 percent developer fee](https://img.shields.io/badge/dev%20fee-1%25%2C%20can%20be%20turned%20off-168f77) ![MIT License](https://img.shields.io/badge/license-MIT-555555)
 
@@ -16,7 +16,9 @@ BC3 Miner mines BitcoinIII (BC3) with BC3Hash, the proof of work BitcoinIII has 
 
 You choose the pool, wallet, worker and password. Every result a GPU finds is hashed again on the CPU with the BitcoinIII node's own BC3Hash code before it is sent to the pool. A 1% developer fee is on by default and can be turned off.
 
-> **Upgrading from v1.0.x:** BitcoinIII replaced SHA3-256T with BC3Hash at block 64360, so BC3Miner v1.0.x no longer mines BC3. Install v2.1.2. On HiveOS, change the flight sheet's Installation URL (see [HiveOS Setup](#hiveos-setup)).
+> **Upgrading from v1.0.x:** BitcoinIII replaced SHA3-256T with BC3Hash at block 64360, so BC3Miner v1.0.x no longer mines BC3. Install v2.1.3. On HiveOS, change the flight sheet's Installation URL (see [HiveOS Setup](#hiveos-setup)).
+
+> **Windows users of v2.0.0 to v2.1.2:** update to v2.1.3. Those versions crash at the start of mining whenever Windows has been running for less than an hour, for example after a restart (see [Troubleshooting / FAQ](#troubleshooting--faq)).
 
 ## Highlights
 
@@ -36,15 +38,15 @@ You choose the pool, wallet, worker and password. Every result a GPU finds is ha
 
 ## Downloads
 
-Download BC3 Miner only from the [official GitHub release](https://github.com/evilwhynot/BC3-Miner/releases/tag/v2.1.2).
+Download BC3 Miner only from the [official GitHub release](https://github.com/evilwhynot/BC3-Miner/releases/tag/v2.1.3).
 
 | Platform | Package | Includes |
 | --- | --- | --- |
-| Windows 10/11 x86_64 | [Windows ZIP](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.2/bc3-miner-v2.1.2-windows-x86_64-nvidia-amd-gui-cli.zip) | Desktop app, command line miner, NVIDIA CUDA, AMD OpenCL |
-| Linux x86_64 | [Linux tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.2/bc3-miner-v2.1.2-linux-x86_64-nvidia-amd.tar.gz) | Command line miner, NVIDIA CUDA, AMD runtime |
-| HiveOS x86_64 | [HiveOS tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.2/bc3miner-2.1.2.tar.gz) | Custom miner `bc3miner` |
-| LGPL sources | [Sources tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.2/bc3-miner-v2.1.2-linux-lgpl-sources.tar.gz) | Source of the libelf and libnuma libraries in the Linux and HiveOS packages |
-| Verification | [SHA256SUMS](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.2/SHA256SUMS-V2_1_2.txt), plus an `.asc` signature for each package | Package integrity and signature checks |
+| Windows 10/11 x86_64 | [Windows ZIP](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.3/bc3-miner-v2.1.3-windows-x86_64-nvidia-amd-gui-cli.zip) | Desktop app, command line miner, NVIDIA CUDA, AMD OpenCL |
+| Linux x86_64 | [Linux tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.3/bc3-miner-v2.1.3-linux-x86_64-nvidia-amd.tar.gz) | Command line miner, NVIDIA CUDA, AMD runtime |
+| HiveOS x86_64 | [HiveOS tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.3/bc3miner-2.1.3.tar.gz) | Custom miner `bc3miner` |
+| LGPL sources | [Sources tar.gz](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.3/bc3-miner-v2.1.3-linux-lgpl-sources.tar.gz) | Source of the libelf and libnuma libraries in the Linux and HiveOS packages |
+| Verification | [SHA256SUMS](https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.3/SHA256SUMS-V2_1_3.txt), plus an `.asc` signature for each package | Package integrity and signature checks |
 
 ## Quick Start
 
@@ -71,8 +73,8 @@ Settings are saved automatically. Intensity, curve table size, temperature limit
 ### Linux
 
 ```bash
-tar -xzf bc3-miner-v2.1.2-linux-x86_64-nvidia-amd.tar.gz
-cd bc3-miner-v2.1.2-linux-x86_64-nvidia-amd
+tar -xzf bc3-miner-v2.1.3-linux-x86_64-nvidia-amd.tar.gz
+cd bc3-miner-v2.1.3-linux-x86_64-nvidia-amd
 ./bc3-miner gpu-list
 ./bc3-miner verify
 ./bc3-miner mine \
@@ -175,28 +177,28 @@ E0F6 CCD1 5264 35B4 1773  E4F1 E031 BF02 8477 0E9E
 
 | File | SHA256 |
 | --- | --- |
-| `bc3-miner-v2.1.2-windows-x86_64-nvidia-amd-gui-cli.zip` | `a56b1360d4d108f2b196102db407cf93604d254219ca70e10c0c9c21eabad415` |
-| `bc3-miner-v2.1.2-linux-x86_64-nvidia-amd.tar.gz` | `86dbb8a6fe1b492dc946f67839817ed17afe6136db565a4b6c6bba50917eb1dc` |
-| `bc3miner-2.1.2.tar.gz` | `fb99ce0d3e3518d164738a0327973da368e20a8449a935a827a73b17f8f971e7` |
-| `bc3-miner-v2.1.2-linux-lgpl-sources.tar.gz` | `37b3773a34fb6c438aeca0b643d01cfcc8750f23493d0092dd55b0078f24a261` |
-| `SHA256SUMS-V2_1_2.txt` | `64da7eb40369766c7d5127d629f84e57e70041588a20147ca54dba8da0bfdb5e` |
+| `bc3-miner-v2.1.3-windows-x86_64-nvidia-amd-gui-cli.zip` | `e0f9ce50efa2439c970c99c6d11331385f2df943bc09f04c73296c5c95490698` |
+| `bc3-miner-v2.1.3-linux-x86_64-nvidia-amd.tar.gz` | `8968b5a0eb958e86a8062358ba53de31b386d62e757b97fc1a736c71ba7695ae` |
+| `bc3miner-2.1.3.tar.gz` | `1b7c2e2937a53a4583daa279266a36d0bba6d838d2b92b8333ab5165fecd8bd5` |
+| `bc3-miner-v2.1.3-linux-lgpl-sources.tar.gz` | `0b8e6013af62336c6d36d470d39a90e2f8d70ed870304f451090e415c6506799` |
+| `SHA256SUMS-V2_1_3.txt` | `bbd8f495039de8150ac7beb63f1fe1915628442400c68ef5d20aed40b95af23d` |
 
 Check the signature (Linux, or Windows with Gpg4win):
 
 ```bash
-gpg --verify bc3-miner-v2.1.2-windows-x86_64-nvidia-amd-gui-cli.zip.asc bc3-miner-v2.1.2-windows-x86_64-nvidia-amd-gui-cli.zip
+gpg --verify bc3-miner-v2.1.3-windows-x86_64-nvidia-amd-gui-cli.zip.asc bc3-miner-v2.1.3-windows-x86_64-nvidia-amd-gui-cli.zip
 ```
 
 Windows PowerShell:
 
 ```powershell
-Get-FileHash .\bc3-miner-v2.1.2-windows-x86_64-nvidia-amd-gui-cli.zip -Algorithm SHA256
+Get-FileHash .\bc3-miner-v2.1.3-windows-x86_64-nvidia-amd-gui-cli.zip -Algorithm SHA256
 ```
 
 Linux, with the checksum file in the same directory as the packages:
 
 ```bash
-sha256sum -c --ignore-missing SHA256SUMS-V2_1_2.txt
+sha256sum -c --ignore-missing SHA256SUMS-V2_1_3.txt
 ```
 
 Each package also contains `SHA256SUMS.txt` and its signature `SHA256SUMS.txt.asc` for the files inside it.
@@ -230,7 +232,7 @@ Wallet:                      your BC3 address
 Pool:                        Configure in miner
 Miner:                       Custom
 Miner name:                  bc3miner
-Installation URL:            https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.2/bc3miner-2.1.2.tar.gz
+Installation URL:            https://github.com/evilwhynot/BC3-Miner/releases/download/v2.1.3/bc3miner-2.1.3.tar.gz
 Hash algorithm:              bc3hash
 Wallet and worker template:  %WAL%.%WORKER_NAME%
 Pool URL:                    stratum+tcp://na.stratum.hashbay.io:3345
@@ -243,6 +245,12 @@ The same flight sheet works on NVIDIA, AMD and mixed rigs. HiveOS downloads a cu
 NVIDIA rigs need driver 580 or newer (`nvidia-driver-update 580`); rigs with GTX 10XX cards need the 580 series. HiveOS remains responsible for clocks, power, voltage and fan settings. The package's README.txt has the complete HiveOS guide.
 
 ## Troubleshooting / FAQ
+
+<details>
+<summary><strong>The miner crashes right after it starts on Windows ("overflow when subtracting duration from instant").</strong></summary>
+
+Update to v2.1.3. Versions 2.0.0 to 2.1.2 crash this way at the start of mining whenever Windows has been running for less than an hour, for example after a restart or a Windows update, and the miner keeps restarting itself until the hour has passed. Linux and HiveOS are not affected.
+</details>
 
 <details>
 <summary><strong>Does BC3 Miner charge a developer fee?</strong></summary>
@@ -277,7 +285,7 @@ It is the hashrate for each watt of GPU power over the last 10 seconds: 1.78 MH/
 <details>
 <summary><strong>Does BC3Miner v1.0.x still work?</strong></summary>
 
-No. BitcoinIII switched from SHA3-256T to BC3Hash at block 64360, and v1.0.x mined SHA3-256T. Install v2.1.2. On HiveOS, change the flight sheet's Installation URL.
+No. BitcoinIII switched from SHA3-256T to BC3Hash at block 64360, and v1.0.x mined SHA3-256T. Install v2.1.3. On HiveOS, change the flight sheet's Installation URL.
 </details>
 
 <details>
